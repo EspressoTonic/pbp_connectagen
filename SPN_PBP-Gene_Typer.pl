@@ -314,7 +314,7 @@ open(my $fh,'>',$PBP_output) or die "Could not open file '$PBP_output' $!";
 print $fh "Sample_Name\tPBP_Code(1A:2B:2X)\n";
 
 # system("LoTrac_target.pl -1 $fastq1 -2 $fastq2 -q $PBP_DB -S 2.2M -f -n $justName -o $outDir");
-system("LoTrac_target.pl -p $contigs -q $PBP_DB -S 2.2M -f -n $justName -o $outDir");
+system("perl LoTrac_target.pl -p $contigs -q $PBP_DB -S 2.2M -f -n $justName -o $outDir");
 
 chdir "$outDir";
 my $pbp_1A = glob("EXTRACT_*1A*.fasta");
