@@ -24,7 +24,7 @@ sub checkOptions {
     }
 
     if($opts{p}) {
-        $contigs = $opts{2};
+        $contigs = $opts{p};
         if( -e $contigs) {
             print "Contig file is: $contigs\n";
         } else {
