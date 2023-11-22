@@ -239,7 +239,7 @@ while ( my $line = <$q_seq> ) {
     }
 }
 close $q_seq;
-#print "query names:\n$query_names[0]";
+print "query names:\n$query_names[0]";
 
 foreach (@query_names) {
     my $query_name = $_;
