@@ -24,35 +24,6 @@ sub checkOptions {
         help();
     }
 
-=
-    if($opts{1}) {
-        $fastq1 = $opts{1};
-        if( -e $fastq1) {
-            print "Paired-end Read 1 is: $fastq1\n";
-        } else {
-            print "The forward paired-end file name is not in the correct format or doesn't exist.\n";
-            print "Make sure you provide the full path (/root/path/fastq_file).\n";
-            help();
-        }
-    } else {
-        print "No paired end 1 fastq file path argument given.\n";
-        help();
-    }
-=
-    if($opts{2}) {
-        $fastq2 = $opts{2};
-        if( -e $fastq2) {
-            print "Paired-end Read 2 is: $fastq2\n";
-        } else {
-            print "The reverse paired-end file name is not in the correct format or doesn't exist.\n";
-            print "Make sure you provide the full path (/root/path/fastq_file).\n";
-            help();
-        }
-    } else {
-        print "No paired end 2 fastq file path argument given.\n";
-        help();
-    }
-=cut
     if($opts{p}) {
         $contigs = $opts{2};
         if( -e $contigs) {
@@ -230,30 +201,6 @@ sub extractFastaByID {
 
 ##Start Doing Stuff##
 chdir "$outDir";
-=
-###Preprocess with Cutadapt###
-my $fastq1_trimd = "cutadapt_".$outName."_S1_L001_R1_001.fastq";
-my $fastq2_trimd = "cutadapt_".$outName."_S1_L001_R2_001.fastq";
-if( -e $fastq1_trimd) {
-    print "Fastq files have already been preprocessed\n";
-} else {
-    print "Beginning cutadapt\n";
-    system("cutadapt -b AGATCGGAAGAGCACACGTCTGAACTCCAGTCAC -q 20 --minimum-length 50 --paired-output temp2.fastq -o temp1.fastq $fastq1 $fastq2");
-    system("cutadapt -b AGATCGGAAGAGCGTCGTGTAGGGAAAGAGTGTAGATCTCGGTGGTCGCCGTATCATT -q 20 --minimum-length 50 --paired-output $fastq1_trimd -o $fastq2_trimd temp2.fastq temp1.fastq");
-    my $tempDel_1 = "temp1.fastq";
-    my $tempDel_2 = "temp2.fastq";
-    unlink $tempDel_1;
-    unlink $tempDel_2;
-}
-
-if( -d "./velvet_output") {
-    print "Velvet assembly has already been completed\n";
-} else {
-    print "Beginning Velvet\n";
-    my $velvetK_val = `velvetk.pl --best --size "$gSize" "$fastq1_trimd" "$fastq2_trimd"`;
-    `VelvetOptimiser.pl -s "$velvetK_val" -e "$velvetK_val" -o "-scaffolding no" -f "-shortPaired -separate -fastq $fastq1_trimd $fastq2_trimd" -d velvet_output`;
-}
-=cut
 print "Beginning Prodigal\n";
 if (glob("prodigal_$outName*")) {
     print "Gene prediction has already been completed\n";
