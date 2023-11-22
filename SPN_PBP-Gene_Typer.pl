@@ -23,34 +23,6 @@ sub checkOptions {
         help();
     }
 
-=
-    if($opts{1}) {
-        $fastq1 = $opts{1};
-        if( -e $fastq1) {
-            print "Paired-end Read 1 is: $fastq1\n";
-        } else {
-            print "The forward paired-end file name is not in the correct format or doesn't exist.\n";
-            print "Make sure you provide the full path (/root/path/fastq_file).\n";
-            help();
-        }
-    } else {
-        print "No paired end 1 fastq file path argument given.\n";
-        help();
-    }
-    if($opts{2}) {
-        $fastq2 = $opts{2};
-        if( -e $fastq2) {
-            print "Paired-end Read 2 is: $fastq2\n";
-        } else {
-            print "The reverse paired-end file name is not in the correct format or doesn't exist.\n";
-            print "Make sure you provide the full path (/root/path/fastq_file).\n";
-            help();
-        }
-    } else {
-        print "No paired end 2 fastq file path argument given.\n";
-        help();
-    }
-=cut
     if($opts{p}) {
         $contigs = $opts{2};
         if( -e $contigs) {
