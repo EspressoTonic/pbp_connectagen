@@ -377,6 +377,8 @@ if ($species eq "GBS") {
 } elsif ($species eq "GAS") {
     print $fh "Sample_Name\tPBP_Code(1A:2B:2X)\n";
     print $fh "$outName\t$code_2X\n";
+} else {
+    print $fh "ITSTHEELSE"
 }
 close $fh;
 #=cut
