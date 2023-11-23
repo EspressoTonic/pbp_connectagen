@@ -2,7 +2,7 @@
 
 # perl SPN_PBP-Gene_Typer.pl -c /data5/wycho/spn/test/KG-16_unfiltered.fasta -n CMC -r /data5/wycho/spn/pbp_connectagen/Spn_Reference_DB/MOD_bLactam_resistance.fasta -o /data5/wycho/spn/result/ -s "SPN" -p '1A,2B,2X'
 
-while getopts s:n:o:
+while getopts s:n:o: option
 do
   case $option in
       s) scaffold_file=$OPTARG;;
