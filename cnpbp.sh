@@ -25,4 +25,6 @@ if [ -z "$out_dir" ]; then
   echo "CANNOT BE EXECUTED"
 else
   echo "RUN"
+fi
   # rm "$out_dir"/*
+
