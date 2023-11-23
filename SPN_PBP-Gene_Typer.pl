@@ -15,16 +15,16 @@ use File::Spec;
 
 sub checkOptions {
     my %opts;
-    getopts('hp:r:d:o:n:', \%opts);
-    my ($help, $contigs, $PBP_DB, $outDir, $outName);
+    getopts('hc:r:o:n:s:p:', \%opts);
+    my ($help, $contigs, $PBP_DB, $outDir, $outName, $species, @pbp_input);
 
     if($opts{h}) {
         $help = $opts{h};
         help();
     }
 
-    if($opts{p}) {
-        $contigs = $opts{p};
+    if($opts{c}) {
+        $contigs = $opts{c};
         if( -e $contigs) {
             print "Contig file is: $contigs\n";
         } else {
@@ -73,7 +73,37 @@ sub checkOptions {
         print "The default output file name prefix is: $outName";
     }
 
-    return ($help, $contigs, $PBP_DB, $outDir, $outName);
+    if($opts{s}) {
+        if ($opts{s} eq "GAS" || $opts{s} eq "GBS" || $opts{s} eq "SPN") {
+            $species = $opts{s};
+            print "The species is: $species\n";
+        } else {
+            print "The species argument needs to be one of the following: GAS, GBS or SPN\n";
+            help();
+        }
+    } else {
+        print "The species argument hasn't been provided\n";
+        help();
+    }
+
+    if($opts{p}) {
+        $pbp_genes = $opts{p};
+        @pbp_input = split(/,/,$pbp_genes);
+        foreach my $pbp (@pbp_input) {
+            if ($pbp =~ /^1A$|^2B$|^2X$/) {
+                print "The script will extract the following PBP gene: $pbp\n";
+            } else {
+                print "The PBP gene <$pbp> doesn't exist or isn't in the right format.\n";
+                print "Make sure you provide a comma delimited string containing 1A, 2B or 2X (e.g. '1A,2B,2X').\n";
+                help();
+            }
+        }
+    } else {
+        print "The PBP gene input argument has not been given.\n";
+        help();
+    }
+
+    return ($help, $contigs, $PBP_DB, $outDir, $outName, $species, @pbp_input);
 }
 
 sub help
