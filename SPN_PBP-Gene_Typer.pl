@@ -303,34 +303,72 @@ sub fasta_seq_length {
 
 
 
+#=pod
 ###Start Doing Stuff###
 print "\n";
-#chdir "$outDir";
-##my $PBP_output = "PBP_".$outName."_Results.txt";
 my $justName = `echo $outName | sed 's/PBP_//g'`;
+chomp($justName);
+system("LoTrac_target.pl -p $contigs -q $PBP_DB -S 2.2M -L 0.95 -f -n $justName -o $outDir");
+chdir "$outDir";
 my $PBP_output = "TEMP_pbpID_Results.txt";
 open(my $fh,'>',$PBP_output) or die "Could not open file '$PBP_output' $!";
-##print $fh "Sample_Name\tPBP_1A\tPBP_2X\tPBP_Code\n";
-print $fh "Sample_Name\tPBP_Code(1A:2B:2X)\n";
+#if (glob("ERROR_*1A*.fasta") || glob("ERROR_*2B*.fasta") || glob("ERROR_*2X*.fasta")) {
+#    print $fh "No PBP Type\n";
+#    exit
+#}
 
-# system("LoTrac_target.pl -1 $fastq1 -2 $fastq2 -q $PBP_DB -S 2.2M -f -n $justName -o $outDir");
-system("perl LoTrac_target.pl -p $contigs -q $PBP_DB -S 2.2M -f -n $justName -o $outDir");
+my ($code_1A, $code_2B, $code_2X) = ("NF", "NF", "NF");
+foreach my $pbp (@pbp_input) {
+    if ($pbp eq "1A" && ! glob("ERROR_*1A*.fasta")) {
+        my $pbp_1A = glob("EXTRACT_*1A*.fasta");
+        my $pbp1A_fragName = `cat $pbp_1A | grep ">" | tail -n1 | sed 's/>//g'`;
+        chomp($pbp1A_fragName);
+        $code_1A = PBP_blastTyper("1A",$pbp1A_fragName,$pbp_1A);
+        print "pbp extract file: $pbp_1A || pbp extraction name: $pbp1A_fragName || pbp ID is: $code_1A\n";
+    } elsif ($pbp eq "2B" && ! glob("ERROR_*2B*.fasta")) {
+        my $pbp_2B = glob("EXTRACT_*2B*.fasta");
+        my $pbp2B_fragName = `cat $pbp_2B | grep ">" | tail -n1 | sed 's/>//g'`;
+        chomp($pbp2B_fragName);
+        $code_2B = PBP_blastTyper("2B",$pbp2B_fragName,$pbp_2B);
+    } elsif ($pbp eq "2X" && ! glob("ERROR_*2X*.fasta")) {
+        my $pbp_2X = glob("EXTRACT_*2X*.fasta");
+        my $pbp2X_fragName = `cat $pbp_2X | grep ">" | tail -n1 | sed 's/>//g'`;
+        chomp($pbp2X_fragName);
+        $code_2X = PBP_blastTyper("2X",$pbp2X_fragName,$pbp_2X);
+    }
+}
 
-chdir "$outDir";
-my $pbp_1A = glob("EXTRACT_*1A*.fasta");
-my $pbp1A_fragName = `cat $pbp_1A | grep ">" | tail -n1 | sed 's/>//g'`;
-my $pbp_2B = glob("EXTRACT_*2B*.fasta");
-my $pbp2B_fragName = `cat $pbp_2B | grep ">" | tail -n1 | sed 's/>//g'`;
-my $pbp_2X = glob("EXTRACT_*2X*.fasta");
-my $pbp2X_fragName = `cat $pbp_2X | grep ">" | tail -n1 | sed 's/>//g'`;
-
-my $code_1A = PBP_blastTyper("1A",$pbp1A_fragName,$pbp_1A);
-my $code_2B = PBP_blastTyper("2B",$pbp2B_fragName,$pbp_2B);
-my $code_2X = PBP_blastTyper("2X",$pbp2X_fragName,$pbp_2X);
-##print $fh "$outName\t$code_1A\t$code_2X\t$code_1A:$code_2X\n";
-print $fh "$outName\t$code_1A:$code_2B:$code_2X\n";
+if ($species eq "GBS") {
+    print $fh "Sample_Name\tPBP_Code(1A:2B:2X)\n";
+    print $fh "$outName\t$code_1A:$code_2B:$code_2X\n";
+} elsif ($species eq "SPN") {
+    print $fh "Sample_Name\tPBP_Code(1A:2B:2X)\n";
+    print $fh "$outName\t$code_1A:$code_2B:$code_2X\n";
+} elsif ($species eq "GAS") {
+    print $fh "Sample_Name\tPBP_Code(1A:2B:2X)\n";
+    print $fh "$outName\t$code_2X\n";
+}
 close $fh;
+#=cut
 
+
+
+
+
+
+
+#my $pbp_1A = glob("EXTRACT_*1A*.fasta");
+#my $pbp1A_fragName = `cat $pbp_1A | grep ">" | tail -n1 | sed 's/>//g'`;
+#my $pbp_2B = glob("EXTRACT_*2B*.fasta");
+#my $pbp2B_fragName = `cat $pbp_2B | grep ">" | tail -n1 | sed 's/>//g'`;
+#my $pbp_2X = glob("EXTRACT_*2X*.fasta");
+#my $pbp2X_fragName = `cat $pbp_2X | grep ">" | tail -n1 | sed 's/>//g'`;
+#my $code_1A = PBP_blastTyper("1A",$pbp1A_fragName,$pbp_1A);
+#my $code_2B = PBP_blastTyper("2B",$pbp2B_fragName,$pbp_2B);
+#my $code_2X = PBP_blastTyper("2X",$pbp2X_fragName,$pbp_2X);
+#print $fh "$outName\t$code_1A\t$code_2X\t$code_1A:$code_2X\n";
+#print $fh "$outName\t$code_1A:$code_2X\n";
+#close $fh;
 
 ###Delete Temp Files###
 #unlink(TEMP*);
