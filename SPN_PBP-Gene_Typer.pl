@@ -16,7 +16,7 @@ use File::Spec;
 sub checkOptions {
     my %opts;
     getopts('hc:r:o:n:s:p:', \%opts);
-    my ($help, $contigs, $PBP_DB, $outDir, $outName, $species, @pbp_input);
+    my ($help, $contigs, $PBP_DB, $outDir, $outName, $pbp_genes, $species, @pbp_input);
 
     if($opts{h}) {
         $help = $opts{h};
