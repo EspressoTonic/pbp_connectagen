@@ -338,7 +338,7 @@ sub fasta_seq_length {
 print "\n";
 my $justName = `echo $outName | sed 's/PBP_//g'`;
 chomp($justName);
-system("LoTrac_target.pl -p $contigs -q $PBP_DB -S 2.2M -L 0.95 -f -n $justName -o $outDir");
+system("perl LoTrac_target.pl -p $contigs -q $PBP_DB -S 2.2M -L 0.95 -f -n $justName -o $outDir");
 chdir "$outDir";
 my $PBP_output = "TEMP_pbpID_Results.txt";
 open(my $fh,'>',$PBP_output) or die "Could not open file '$PBP_output' $!";
