@@ -17,6 +17,6 @@ perl SPN_PBP-Gene_Typer.pl -c "$scaffold_file" -n "$sample_name" \
     -o "$out_dir" -s "SPN" -p '1A,2B,2X'
 echo "Done running PBP check"
 echo "Results"
-cat "$out_dir"/cat TEMP_pbpID_Results.txt
+cat "$out_dir"/TEMP_pbpID_Results.txt
 echo "Removing results..."
 # rm "$out_dir"/*
