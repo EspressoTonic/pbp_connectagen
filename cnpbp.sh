@@ -24,7 +24,7 @@ else
   echo "Results"
   cat "$out_dir"/TEMP_pbpID_Results.txt
   echo "Removing results..."
-  rm "$out_dir"/*
+  # rm "$out_dir"/*
 fi
   #
 
