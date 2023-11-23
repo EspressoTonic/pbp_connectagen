@@ -318,7 +318,7 @@ foreach (@query_names) {
 		open(my $fh, '>', 'TEMP_frwd_extract.bed') or die "Could not open file 'TEMP_frwd_extract.bed' $!";
 		print $fh "$best_name\t$frag_start\t$frag_end\n";
 		close $fh;
-		my $extract_frag_frwd = `bedtools getfasta -fi ./velvet_output/contigs.fa -bed TEMP_frwd_extract.bed -fo stdout`;
+		my $extract_frag_frwd = `bedtools getfasta -fi $contigs -bed TEMP_frwd_extract.bed -fo stdout`;
 		print $exOUT "$extract_frag_frwd\n";
 	    } elsif ($bestArray[9] < $bestArray[8]) {
 		#my $query_extract = $query_strt - 500;
@@ -329,7 +329,7 @@ foreach (@query_names) {
 		print $fh "$best_name\t$frag_end\t$frag_start\n";
 		close $fh;
 
-		my $extract_frag_rev = `bedtools getfasta -tab -fi ./velvet_output/contigs.fa -bed TEMP_rev_extract.bed -fo stdout`;
+		my $extract_frag_rev = `bedtools getfasta -tab -fi $contigs -bed TEMP_rev_extract.bed -fo stdout`;
 		print "extract frag is:\n$extract_frag_rev\n";
 		my @rev_frag_array = split('\t',$extract_frag_rev);
 		my $rev_comp_frag = reverse($rev_frag_array[1]);
