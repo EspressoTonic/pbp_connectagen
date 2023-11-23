@@ -126,7 +126,7 @@ NEW: GBS_PBP-Gene_Typer.pl -p <contig scaffold file: fastq> -r <reference databa
 EOF
 }
 
-my ($help, $contigs, $PBP_DB, $outDir, $outName) = checkOptions( @ARGV );
+my ($help, $contigs, $PBP_DB, $outDir, $outName, $species, @pbp_input) = checkOptions( @ARGV );
 
 
 
