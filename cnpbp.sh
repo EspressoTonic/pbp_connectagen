@@ -12,9 +12,7 @@ do
 done
 
 echo "Running PBP check"
-perl SPN_PBP-Gene_Typer.pl -c "$scaffold_file" -n "$sample_name" \
-    -r /data5/wycho/spn/pbp_connectagen/Spn_Reference_DB/MOD_bLactam_resistance.fasta \
-    -o "$out_dir" -s "SPN" -p '1A,2B,2X'
+perl SPN_PBP-Gene_Typer.pl -c "$scaffold_file" -n "$sample_name" -r /data5/wycho/spn/pbp_connectagen/Spn_Reference_DB/MOD_bLactam_resistance.fasta -o "$out_dir" -s "SPN" -p '1A,2B,2X'
 echo "Done running PBP check"
 echo "Results"
 cat "$out_dir"/TEMP_pbpID_Results.txt
