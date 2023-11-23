@@ -21,4 +21,8 @@ echo "Done running PBP check"
 echo "Results"
 cat "$out_dir"/TEMP_pbpID_Results.txt
 echo "Removing results..."
-rm "$out_dir"/*
+if [ -z "$out_dir" ]; then
+  echo "CANNOT BE EXECUTED"
+else
+  echo "RUN"
+  # rm "$out_dir"/*
