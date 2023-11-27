@@ -2,13 +2,16 @@
 
 # perl SPN_PBP-Gene_Typer.pl -c /data5/wycho/spn/test/KG-16_unfiltered.fasta -n CMC -r /data5/wycho/spn/pbp_connectagen/Spn_Reference_DB/MOD_bLactam_resistance.fasta -o /data5/wycho/spn/result/ -s "SPN" -p '1A,2B,2X'
 
-while getopts s:n:o: option
+usage() { echo "Usage: $0 [-s <scaffold_file>] [-n <sample_name>] [-o <out_dir>] [-h]" 1>&2; exit 1; }
+
+while getopts :hs:n:o: option
 do
-  # shellcheck disable=SC2220
   case $option in
       s) scaffold_file=$OPTARG;;
       n) sample_name=$OPTARG;;
       o) out_dir=$OPTARG;;
+      h|*) usage
+        exit 0 ;;
   esac
 done
 
