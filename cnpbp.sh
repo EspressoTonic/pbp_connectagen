@@ -14,6 +14,7 @@ done
 
 # Get the path of the current script
 script_path="$$0"
+echo "The path of this script is: $script_path"
 
 if [ -z "$out_dir" ]; then
   echo "CANNOT BE EXECUTED"
