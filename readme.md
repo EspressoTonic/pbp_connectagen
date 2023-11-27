@@ -15,7 +15,7 @@ First clone the repository using the command
 $ git clone git@github.com:EspressoTonic/pbp_connectagen.git
 ```
 
-To use the program, simple use
+To use the program, simply use
 
 ```bash
 $ bash cnpbp.sh -s <Path/To/Sample/Contig/File> -n <Sample> -o <Directory/Path/To/Result/File>
