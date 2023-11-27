@@ -57,7 +57,8 @@ grep -v ">" temp1.faa >> Sample_PBP2X_AA.faa
 
 rm -f temp*
 
-AAtoMICwrapper_2.sh $AAseqDir "$install_path"
+wraper_path="$install_path/bLactam_MIC_Rscripts/AAtoMICwrapper_2.sh"
+bash $wraper_path $AAseqDir "$install_path"
 
 # Use Aspen Cluster to run; BioLinux will not work
 
