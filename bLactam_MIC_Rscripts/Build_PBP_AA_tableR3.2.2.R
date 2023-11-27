@@ -1,3 +1,16 @@
+# List of packages
+packages <- c("Biostrings")
+
+# Function to check and install packages
+check_and_install <- function(pkg){
+  if(!pkg %in% installed.packages()){
+    install.packages(pkg, dependencies = TRUE)
+  }
+}
+
+# Apply the function to each package
+sapply(packages, check_and_install)
+
 ## Function Build_PBP_AA_table
 #datafolder="C:\\Users\\YQH8\\Desktop\\201508\\PBP_MIC_R\\MA616"
 Build_PBP_AA_table<- function(datafolder)

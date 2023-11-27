@@ -1,4 +1,15 @@
+# List of packages
+packages <- c("methods", "randomForest", "iterators", "foreach", "glmnet")
 
+# Function to check and install packages
+check_and_install <- function(pkg){
+  if(!pkg %in% installed.packages()){
+    install.packages(pkg, dependencies = TRUE)
+  }
+}
+
+# Apply the function to each package
+sapply(packages, check_and_install)
 
 ## Function PBP_AA_TO_MIC2
 
