@@ -21,7 +21,9 @@ To use the program, simple use
 $ bash cnpbp.sh -s <Path/To/Sample/Contig/File> -n <Sample> -o <Directory/Path/To/Result/File>
 ```
 
-The result file will be saved at ```$outdir/$Sample_final_result.tsv```.
+**WARNING: The program temporarily creates and deletes all intermediate files saved in ```<$outdir>/workdir```. Be careful not to have the directory ```workdir``` in the ```$outdir``` before running the algorithm**
+
+The result file will be saved at ```<$outdir>/<$Sample>_final_result.tsv```.
 
 An example output looks like this:
 

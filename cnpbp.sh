@@ -32,7 +32,7 @@ else
   cat "$out_dir"/workdir/TEMP_pbpID_Results.txt
   echo "Running MIC prediction"
   bash "$script_path"/bLactam_MIC_Rscripts/PBP_AA_sampledir_to_MIC_20180710.sh "$out_dir"/workdir "$script_path"
-  echo "Writing summary data at""$out_dir/$sample_name""_final_result.tsv"
+  echo "Writing summary data at" "$out_dir/$sample_name""_final_result.tsv"
   python3 "$script_path"/clean.py "$out_dir"/workdir "$out_dir"/"$sample_name"_final_result.tsv
   rm -rf "$out_dir"/workdir/
 fi
