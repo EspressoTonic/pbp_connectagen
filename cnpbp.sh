@@ -24,7 +24,9 @@ else
   echo "out directory is $out_dir"
 
   echo "Running PBP check"
-  perl "$script_path"/SPN_PBP-Gene_Typer.pl -c "$scaffold_file" -n "$sample_name" -r /data5/wycho/spn/pbp_connectagen/Spn_Reference_DB/MOD_bLactam_resistance.fasta -o "$out_dir" -s "SPN" -p '1A,2B,2X'
+  rm -rf "$out_dir"/workdir/
+  mkdir -rf "$out_dir"/workdir/
+  perl "$script_path"/SPN_PBP-Gene_Typer.pl -c "$scaffold_file" -n "$sample_name" -r /data5/wycho/spn/pbp_connectagen/Spn_Reference_DB/MOD_bLactam_resistance.fasta -o "$out_dir"/workdir/ -s "SPN" -p '1A,2B,2X'
   echo "Done running PBP check"
   echo "Results"
   cat "$out_dir"/TEMP_pbpID_Results.txt
@@ -32,7 +34,7 @@ else
   bash "$script_path"/bLactam_MIC_Rscripts/PBP_AA_sampledir_to_MIC_20180710.sh "$out_dir" "$script_path"
   echo "Writing summary data at $out_dir/final_result.tsv"
   python3 "$script_path"/clean.py "$out_dir" "$out_dir"/final_result.tsv
-  # rm "$out_dir"/*
+  rm -rf "$out_dir"/workdir/
 fi
   #
 
