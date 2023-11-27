@@ -15,7 +15,7 @@ def get_summary(resdir, outfile):
     PEN_resstring = f"Penicililn\t{blcode[0]}{blcode[1]}\t{blcode[2]}\\{blcode[3]}\n"
     TAX_resstring = f"Cefotaxime\t{blcode[10]}{blcode[11]}\t{blcode[12]}\\{blcode[13]}\n"
     result = pbp_resstring + AMO_resstring + CFT_resstring + TAX_resstring + CFX_resscring + MER_resstring + PEN_resstring
-    with open(outfile) as out:
+    with open(outfile, "w") as out:
         out.write(result)
 
 if __name__ == '__main__':
