@@ -13,7 +13,7 @@ do
 done
 
 # Get the path of the current script
-script_path="$$0"
+script_path=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 echo "The path of this script is: $script_path"
 
 if [ -z "$out_dir" ]; then
