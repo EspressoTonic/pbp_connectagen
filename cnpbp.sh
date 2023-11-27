@@ -25,7 +25,7 @@ else
 
   echo "Running PBP check"
   rm -rf "$out_dir"/workdir/
-  mkdir -rf "$out_dir"/workdir/
+  mkdir -p "$out_dir"/workdir/
   perl "$script_path"/SPN_PBP-Gene_Typer.pl -c "$scaffold_file" -n "$sample_name" -r /data5/wycho/spn/pbp_connectagen/Spn_Reference_DB/MOD_bLactam_resistance.fasta -o "$out_dir"/workdir/ -s "SPN" -p '1A,2B,2X'
   echo "Done running PBP check"
   echo "Results"
@@ -33,7 +33,7 @@ else
   echo "Running MIC prediction"
   bash "$script_path"/bLactam_MIC_Rscripts/PBP_AA_sampledir_to_MIC_20180710.sh "$out_dir"/workdir "$script_path"
   echo "Writing summary data at $out_dir/final_result.tsv"
-  python3 "$script_path"/clean.py "$out_dir"/workdir "$out_dir"/final_result.tsv
+  python3 "$script_path"/clean.py "$out_dir"/workdir "$out_dir"/"$sample_name"_final_result.tsv
   rm -rf "$out_dir"/workdir/
 fi
   #
