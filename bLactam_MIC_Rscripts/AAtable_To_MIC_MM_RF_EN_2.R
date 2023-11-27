@@ -2,13 +2,7 @@
 
 ## Function PBP_AA_TO_MIC2
 
-PBP_AA_TO_MIC2<- function(cwd){
-  dbdir="/scicomp/groups/OID/NCIRD/DBD/RDB/Strep_Lab/External/share/PBP_AA_to_MIC/newDB/"
-  libpath="/scicomp/groups/OID/NCIRD/DBD/RDB/Strep_Lab/External/share/PBP_AA_to_MIC/Rlib"
-  #x1=.libPaths()
-  x2=c(libpath, "/usr/lib64/R/library", "/usr/share/R/library")
-  .libPaths(x2)
-  #.libPaths(c(.libPaths(), libpath))
+PBP_AA_TO_MIC2<- function(cwd, dbdir){
   library("methods")
   library("randomForest")
   library('iterators')
@@ -91,7 +85,7 @@ PBP_AA_TO_MIC2<- function(cwd){
   n2=dim(m2.1)[2]
 
 
-  m3=read.csv("/scicomp/groups/OID/NCIRD/DBD/RDB/Strep_Lab/External/share/PBP_AA_to_MIC/scripts/BLOSUM62.csv", colClasses="character", header=T) 
+  m3=read.csv(paste(dbdir, "BLOSUM62.csv", sep=""), colClasses="character", header=T) 
   colnames(m3)[2:25]=m3$src
   m2.1[m2.1=="*"]="-"
   m2.2=m2.1
@@ -126,7 +120,7 @@ PBP_AA_TO_MIC2<- function(cwd){
   m3=m2$sampleID
   for (j1 in 1:6)
   {
-    rm(fit1)
+    #rm(fit1)
     load(RFdbMIC[j1])
     m3=cbind(m3, round(2^predict(fit1, newdata = m2.2), 2))
   }
@@ -202,9 +196,11 @@ PBP_AA_TO_MIC2<- function(cwd){
 
 args <- commandArgs(TRUE)
 cwd = args[1]
+dbdir = args[2]
 
 print (cwd)
-PBP_AA_TO_MIC2(cwd)
+print (dbdir)
+PBP_AA_TO_MIC2(cwd, dbdir)
 
 
 

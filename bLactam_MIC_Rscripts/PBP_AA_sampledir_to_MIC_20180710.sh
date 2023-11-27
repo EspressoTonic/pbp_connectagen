@@ -1,25 +1,27 @@
 #!/bin/bash -l
-source /etc/profile.d/modules.sh
-module load EMBOSS/6.4.0
-module load  R/3.3.2
 
 x1="0"
 if [ -d "$1" ]; then
 if [ -s "$1""/EXTRACT_1A-S2_target.fasta" ]; then
 if [ -s "$1""/EXTRACT_2B-S2_target.fasta" ]; then
 if [ -s "$1""/EXTRACT_2B-S2_target.fasta" ]; then
+if [ -d "$2" ]; then
 x1="1"
+fi
 fi
 fi
 fi
 fi
 
 if [ "$x1" == "1" ]; then
+  install_path=$2
   d1=$1
   echo "Data folder is $d1"
+  echo "Install path is $install_path"
 else
-  echo "usage bash ./PBP_AA_sampledir_to_MIC_20171207 data_dir"
+  echo "usage bash ./PBP_AA_sampledir_to_MIC_20171207 data_dir install_path"
   echo ""
+  echo "install_path is a directory that contains the wrapper scripts/install"
   echo "data_dir is a directory that must conatin 3 files with the following exact names, respectively:"
   echo "EXTRACT_1A-S2_target.fasta"
   echo "EXTRACT_2B-S2_target.fasta"
@@ -55,15 +57,14 @@ grep -v ">" temp1.faa >> Sample_PBP2X_AA.faa
 
 rm -f temp*
 
-#
-scr1="/scicomp/groups/OID/NCIRD/DBD/RDB/Strep_Lab/External/share/PBP_AA_to_MIC/scripts/AAtoMICwrapper_2.sh"
-bash $scr1 $AAseqDir
+AAtoMICwrapper_2.sh $AAseqDir "$install_path"
 
 # Use Aspen Cluster to run; BioLinux will not work
 
 #
 fin="$AAseqDir"/Sample_PBPtype_MIC2_Prediction.csv
-scr1="/scicomp/groups/OID/NCIRD/DBD/RDB/Strep_Lab/External/share/PBP_AA_to_MIC/scripts/MIC_format_with_SIR.R"
+#scr1="/scicomp/groups/OID/NCIRD/DBD/RDB/Strep_Lab/External/share/PBP_AA_to_MIC/scripts/MIC_format_with_SIR.R"
+scr1="$install_path/bLactam_MIC_Rscripts/MIC_format_with_SIR.R"
 Rscript $scr1 $fin
 fout="$AAseqDir"/Sample_PBPtype_MIC2_Prediction.csv_MIC_formatted_with_SIR.csv
 
@@ -92,4 +93,3 @@ echo "BLACTAM MIC output file:" "$d1""/BLACTAM_MIC_RF_with_SIR.txt"
 rm -f temp* 
 #rm -rf $AAseqDir
 
-module unload EMBOSS/6.4.0
