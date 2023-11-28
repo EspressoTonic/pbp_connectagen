@@ -18,12 +18,12 @@ $ git clone git@github.com:EspressoTonic/pbp_connectagen.git
 To use the program, simply use
 
 ```bash
-$ bash cnpbp.sh -s <Path/To/Sample/Contig/File> -n <Sample> -o <Directory/Path/To/Result/File>
+$ bash cnpbp.sh -s <Path/To/Sample/Contig/File> -n <Sample_name> -o <Directory/Path/To/Result/File>
 ```
 
-**WARNING: The program temporarily creates and deletes all intermediate files saved in ```<$outdir>/<$sample>_workdir```. Be careful not to have the directory ```<$sample_name>_workdir``` in the ```<$outdir>``` before running the algorithm**
+**WARNING: The program temporarily creates and deletes all intermediate files saved in ```<$outdir>/<$Sample_name>_workdir```. Be careful not to have the directory ```<$Sample_name>_workdir``` in the ```<$outdir>``` before running the algorithm**
 
-The result file will be saved at ```<$outdir>/<$Sample>_final_result.tsv```.
+The result file will be saved at ```<$outdir>/<$Sample_name>_final_result.tsv```.
 
 An example output looks like this:
 
