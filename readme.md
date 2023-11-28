@@ -42,7 +42,7 @@ Penicililn      =4      I\R
 ```
 Under the ```PBP_CATEGORY``` and ```Type``` column, the identified PBP type according to [Pathogenwatch](https://pathogen.watch/) developers is shown. 
 
-Under the ```Agent```, ``` Predicted_NIC``` and ```Inferred_phenotype``` column, the predicted MICs are shown. 
+Under the ```Agent```,  ```Predicted_NIC``` and ```Inferred_phenotype``` column, the predicted MICs are shown. 
 
 Refer to the following table for result description
 
