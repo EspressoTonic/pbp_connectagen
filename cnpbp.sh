@@ -28,7 +28,7 @@ else
 
   echo "Running PBP check"
   rm -rf "$out_dir"/"$sample_name"_workdir/
-  mkdir -p "$out_dir"/"$sample_name"workdir/
+  mkdir -p "$out_dir"/"$sample_name"_workdir/
   perl "$script_path"/SPN_PBP-Gene_Typer.pl -c "$scaffold_file" -n "$sample_name" -r /data5/wycho/spn/pbp_connectagen/Spn_Reference_DB/MOD_bLactam_resistance.fasta -o "$out_dir"/"$sample_name"_workdir/ -s "SPN" -p '1A,2B,2X'
   echo "Done running PBP check"
   echo "Results"
