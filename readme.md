@@ -12,7 +12,7 @@ The machine learning model is described in [Li et al.(2016)](https://pubmed.ncbi
 First clone the repository using the command
 
 ```bash
-$ git clone git@github.com:EspressoTonic/pbp_connectagen.git
+$ git clone git@github.com:IRCGP-Lab/pbp_connectagen.git
 ```
 
 To use the program, simply use
